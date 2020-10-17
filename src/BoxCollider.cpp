@@ -7,7 +7,12 @@ namespace gnCollider {
 	{
 	}
 
-	bool BoxCollider::isHitTest(BoxCollider& _collider)
+	ColliderType BoxCollider::getType()
+	{
+		return ColliderType::BOX;
+	}
+
+	bool BoxCollider::isHitTest(const BoxCollider& _collider)
 	{
 		if (getMax().x >= _collider.getMin().x
 			&& getMin().x <= _collider.getMax().x
@@ -56,10 +61,5 @@ namespace gnCollider {
 	{
 		return size;
 	}
-
-	ColliderType BoxCollider::getType()
-	{
-		return ColliderType::BOX;
-	}
-
+	
 }

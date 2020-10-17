@@ -8,8 +8,6 @@
 
 namespace gnCollider {
 
-	class Vertex2D;
-
 	struct Vertex2D{
 		float x, y;
 	};
@@ -19,7 +17,7 @@ namespace gnCollider {
 		using PolygonList = std::vector<Vertex2D>;
 
 	public:
-		PolygonCollider();
+		PolygonCollider() = default;
 		PolygonCollider(std::initializer_list<Vertex2D> _polygon);
 		~PolygonCollider() = default;
 

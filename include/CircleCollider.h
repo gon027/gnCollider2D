@@ -8,7 +8,7 @@ namespace gnCollider {
 
 	class CircleCollider : public ICollider {
 	public:
-		CircleCollider();
+		CircleCollider() = default;
 		CircleCollider(const Vector2& _vector, const Vector2& _radius);
 		CircleCollider(float _x, float _y, float _rx, float _ry);
 		~CircleCollider() = default;

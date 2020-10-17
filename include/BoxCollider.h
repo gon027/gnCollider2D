@@ -33,6 +33,7 @@ namespace gnCollider {
 		Vector2 size;
 		Bounds bounds;
 	};
+	
 }
 
 #endif // !BOXCOLLIDER_H

@@ -8,7 +8,7 @@ namespace gnCollider {
 
 	class PointCollider : public ICollider{
 	public:
-		PointCollider();
+		PointCollider() = default;
 		PointCollider(const Vector2& _pos);
 		~PointCollider();
 

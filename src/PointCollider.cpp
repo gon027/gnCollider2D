@@ -18,6 +18,11 @@ namespace gnCollider {
 	{
 	}
 
+	ColliderType PointCollider::getType()
+	{
+		return ColliderType::POINT;
+	}
+
 	void PointCollider::update(const Vector2 _pos)
 	{
 		position = _pos;
@@ -62,11 +67,6 @@ namespace gnCollider {
 	bool PointCollider::isHitTest(const PolygonCollider& _collider)
 	{
 		return false;
-	}
-
-	ColliderType PointCollider::getType()
-	{
-		return ColliderType::POINT;
 	}
 
 	Vector2& PointCollider::getPos()
