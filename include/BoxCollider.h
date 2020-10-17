@@ -8,6 +8,8 @@
 namespace gnCollider {
 
 	class CircleCollider;
+	class LineCollider;
+	class PointCollider;
 	class PolygonCollider;
 
 	class BoxCollider : public ICollider {

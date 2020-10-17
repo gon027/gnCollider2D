@@ -2,7 +2,6 @@
 #include "../include/BoxCollider.h"
 #include "../include/CircleCollider.h"
 #include "../include/PolygonCollider.h"
-#include "../include/PointCollider.h"
 
 namespace gnCollider {
 
