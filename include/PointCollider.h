@@ -1,15 +1,10 @@
 #ifndef POINTCOLLIDER_H
 #define POINTCOLLIDER_H
 
-#include "Vector2.h"
-#include "Math/ICollider.h"
+#include "ICollider.h"
+#include "Math/Vector2.h"
 
 namespace gnCollider {
-
-	class BoxCollider;
-	class CircleCollider;
-	class LineCollider;
-	class PolygonCollider;
 
 	class PointCollider : public ICollider{
 	public:
@@ -17,14 +12,15 @@ namespace gnCollider {
 		PointCollider(const Vector2& _pos);
 		~PointCollider();
 
-		void update(const Vector2 _pos);
-
-		bool isHitTest(const PointCollider& _collider);
-		bool isHitTest(const BoxCollider& _collider);
-		bool isHitTest(const CircleCollider& _collider);
-		bool isHitTest(const PolygonCollider& _collider);
-		
 		ColliderType getType() override;
+
+		bool isHitTest(const BoxCollider&     _collider) override;
+		bool isHitTest(const CircleCollider&  _collider) override;
+		bool isHitTest(const LineCollider&    _collider) override;
+		bool isHitTest(const PointCollider&   _collider) override;
+		bool isHitTest(const PolygonCollider& _collider) override;
+
+		void update(const Vector2 _pos);
 
 		Vector2& getPos();
 

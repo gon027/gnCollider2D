@@ -9,10 +9,6 @@
 namespace gnCollider {
 
 	class Vertex2D;
-	class BoxCollider;
-	class CircleCollider;
-	class LineCollider;
-	class PolygonCollider;
 
 	struct Vertex2D{
 		float x, y;
@@ -26,6 +22,14 @@ namespace gnCollider {
 		PolygonCollider();
 		PolygonCollider(std::initializer_list<Vertex2D> _polygon);
 		~PolygonCollider() = default;
+
+		ColliderType getType() override;
+
+		bool isHitTest(const BoxCollider&     _collider) override;
+		bool isHitTest(const CircleCollider&  _collider) override;
+		bool isHitTest(const LineCollider&    _collider) override;
+		bool isHitTest(const PointCollider&   _collider) override;
+		bool isHitTest(const PolygonCollider& _collider) override;
 
 	private:
 		PolygonList polygonList;

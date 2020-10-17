@@ -7,20 +7,19 @@
 
 namespace gnCollider {
 
-	class CircleCollider;
-	class LineCollider;
-	class PointCollider;
-	class PolygonCollider;
-
 	class BoxCollider : public ICollider {
 	public:
 		BoxCollider(Vector2& _pos, Vector2& _min, Vector2& _max);
 		BoxCollider() = default;
 		~BoxCollider() = default;
 
-		bool isHitTest(BoxCollider& _collider);
-		bool isHitTest(const CircleCollider& _collider);
-		bool isHitTest(const PolygonCollider& _collider);
+		virtual ColliderType getType() override;
+
+		bool isHitTest(const BoxCollider&     _collider) override;
+		bool isHitTest(const CircleCollider&  _collider) override;
+		bool isHitTest(const LineCollider&    _collider) override;
+		bool isHitTest(const PointCollider&   _collider) override;
+		bool isHitTest(const PolygonCollider& _collider) override;
 
 		void update(const Vector2& _pos, const Bounds& _bounds);
 
@@ -28,8 +27,6 @@ namespace gnCollider {
 		Vector2 getMin() const;
 		Vector2 getMax() const;
 		Vector2 gerSize() const;
-
-		virtual ColliderType getType() override;
 
 	private:
 		Vector2 center;

@@ -6,11 +6,6 @@
 
 namespace gnCollider {
 
-	class BoxCollider;
-	class LineCollider;
-	class PointCollider;
-	class PolygonCollider;
-
 	class CircleCollider : public ICollider {
 	public:
 		CircleCollider();
@@ -18,13 +13,15 @@ namespace gnCollider {
 		CircleCollider(float _x, float _y, float _rx, float _ry);
 		~CircleCollider() = default;
 
-		void update(const Vector2& _vector, const Vector2& _radius);
-
-		bool isHitTest(const CircleCollider& _circleCollider);
-		bool isHitTest(const BoxCollider& _collider);
-		bool isHitTest(const PolygonCollider& _collider);
-
 		ColliderType getType() override;
+
+		bool isHitTest(const BoxCollider&     _collider) override;
+		bool isHitTest(const CircleCollider&  _collider) override;
+		bool isHitTest(const LineCollider&    _collider) override;
+		bool isHitTest(const PointCollider&   _collider) override;
+		bool isHitTest(const PolygonCollider& _collider) override;
+
+		void update(const Vector2& _vector, const Vector2& _radius);
 
 		Vector2& getPos();
 		Vector2& getRadius();
