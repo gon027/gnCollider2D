@@ -3,7 +3,7 @@
 
 #include "Vector2.h"
 
-namespace gnCollider {
+namespace gnCollider2D {
 
 	struct Bounds {
 		Vector2 leftTop;

@@ -4,11 +4,11 @@
 #include "ICollider.h"
 #include "Math/Vector2.h"
 
-namespace gnCollider {
+namespace gnCollider2D {
 
     class LineCollider : public ICollider {
     public:
-        LineCollider() = default;
+        LineCollider();
         LineCollider(const Vector2& _sv, const Vector2& _gv);
         ~LineCollider() = default;
 

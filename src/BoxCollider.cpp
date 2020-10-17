@@ -1,6 +1,10 @@
 #include "../include/BoxCollider.h"
+#include "../include/CircleCollider.h"
+#include "../include/LineCollider.h"
+#include "../include/PointCollider.h"
+#include "../include/PolygonCollider.h"
 
-namespace gnCollider {
+namespace gnCollider2D {
 
 	BoxCollider::BoxCollider(Vector2& _pos, Vector2& _min, Vector2& _max)
 		: center(_pos)
@@ -25,12 +29,12 @@ namespace gnCollider {
 		return false;
 	}
 
-	bool gnCollider::BoxCollider::isHitTest(const CircleCollider& _collider)
+	bool gnCollider2D::BoxCollider::isHitTest(const CircleCollider& _collider)
 	{
 		return false;
 	}
 
-	bool gnCollider::BoxCollider::isHitTest(const PolygonCollider& _collider)
+	bool gnCollider2D::BoxCollider::isHitTest(const PolygonCollider& _collider)
 	{
 		return false;
 	}

@@ -1,15 +1,22 @@
 #include "../include/LineCollider.h"
 #include "../include/BoxCollider.h"
 #include "../include/CircleCollider.h"
+#include "../include/PointCollider.h"
 #include "../include/PolygonCollider.h"
 
-namespace gnCollider {
+namespace gnCollider2D {
+
+    LineCollider::LineCollider()
+        : start()
+        , end()
+    {
+
+    }
 
     LineCollider::LineCollider(const Vector2& _sv, const Vector2& _gv)
         : start(_sv)
         , end(_gv)
     {
-
     }
 
     ColliderType LineCollider::getType() {

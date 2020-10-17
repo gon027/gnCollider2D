@@ -4,13 +4,13 @@
 #include "ICollider.h"
 #include "Math/Vector2.h"
 
-namespace gnCollider {
+namespace gnCollider2D {
 
 	class PointCollider : public ICollider{
 	public:
-		PointCollider() = default;
+		PointCollider();
 		PointCollider(const Vector2& _pos);
-		~PointCollider();
+		~PointCollider() = default;
 
 		ColliderType getType() override;
 

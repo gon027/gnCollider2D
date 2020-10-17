@@ -6,7 +6,7 @@
 #include "ICollider.h"
 #include "Math/Vector2.h"
 
-namespace gnCollider {
+namespace gnCollider2D {
 
 	struct Vertex2D{
 		float x, y;

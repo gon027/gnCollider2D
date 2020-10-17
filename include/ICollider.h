@@ -1,7 +1,7 @@
 #ifndef ICOLLIDER_H
 #define ICOLLIDER_H
 
-namespace gnCollider {
+namespace gnCollider2D {
 
 	class BoxCollider;
 	class CircleCollider;

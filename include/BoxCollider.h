@@ -5,7 +5,7 @@
 #include "Math/Vector2.h"
 #include "Math/Bounds.h"
 
-namespace gnCollider {
+namespace gnCollider2D {
 
 	class BoxCollider : public ICollider {
 	public:

@@ -1,8 +1,13 @@
-#ifndef POLYGONCOLLIDER_H
-#define POLYGONCOLLIDER_H
+#include "../include/PolygonCollider.h"
+#include "../include/BoxCollider.h"
+#include "../include/CircleCollider.h"
+#include "../include/LineCollider.h"
+#include "../include/PointCollider.h"
 
-namespace gnCollider{
-    
+namespace gnCollider2D{
+
+    PolygonCollider::PolygonCollider(std::initializer_list<Vertex2D> _polygon)
+    {    
+    }
+
 }
-
-#endif // POLYGONCOLLIDER_H

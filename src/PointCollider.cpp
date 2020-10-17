@@ -1,8 +1,10 @@
 #include "../include/PointCollider.h"
-#include "../include/CircleCollider.h"
 #include "../include/BoxCollider.h"
+#include "../include/CircleCollider.h"
+#include "../include/PointCollider.h"
+#include "../include/PolygonCollider.h"
 
-namespace gnCollider {
+namespace gnCollider2D {
 
 	PointCollider::PointCollider()
 		: position(Vector2::Zero)
@@ -11,10 +13,6 @@ namespace gnCollider {
 
 	PointCollider::PointCollider(const Vector2& _pos)
 		: position(_pos)
-	{
-	}
-
-	PointCollider::~PointCollider()
 	{
 	}
 

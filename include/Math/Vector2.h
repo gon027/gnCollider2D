@@ -3,7 +3,7 @@
 
 #include <string>
 
-namespace gnCollider {
+namespace gnCollider2D {
 
 	class Vector2 {
 	public:
