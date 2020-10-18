@@ -6,7 +6,7 @@
 
 namespace gnCollider2D {
 
-	BoxCollider::BoxCollider(Vector2& _pos, Vector2& _min, Vector2& _max)
+	BoxCollider::BoxCollider(const Vector2& _pos, const Vector2& _min, const Vector2& _max)
 		: center(_pos)
 	{
 	}
@@ -61,7 +61,7 @@ namespace gnCollider2D {
 		return bounds.rightBottom;
 	}
 
-	Vector2 BoxCollider::gerSize() const
+	Vector2 BoxCollider::getSize() const
 	{
 		return size;
 	}

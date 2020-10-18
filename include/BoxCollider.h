@@ -9,7 +9,7 @@ namespace gnCollider2D {
 
 	class BoxCollider : public ICollider {
 	public:
-		BoxCollider(Vector2& _pos, Vector2& _min, Vector2& _max);
+		BoxCollider(const Vector2& _pos, const Vector2& _min, const Vector2& _max);
 		BoxCollider() = default;
 		~BoxCollider() = default;
 
@@ -26,7 +26,7 @@ namespace gnCollider2D {
 		Vector2 getPos() const;
 		Vector2 getMin() const;
 		Vector2 getMax() const;
-		Vector2 gerSize() const;
+		Vector2 getSize() const;
 
 	private:
 		Vector2 center;

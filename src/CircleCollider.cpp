@@ -2,7 +2,7 @@
 #include "../include/BoxCollider.h"
 #include "../include/LineCollider.h"
 #include "../include/PointCollider.h"
-#include "../include/PointCollider.h"
+#include "../include/PolygonCollider.h"
 
 namespace gnCollider2D {
 
