@@ -31,12 +31,6 @@ namespace gnCollider2D {
 		return ColliderType::CIRCLE;
 	}
 
-	void CircleCollider::update(const Vector2& _vector, float _radius)
-	{
-		position.setPos(_vector);
-		radius = _radius;
-	}
-
 	bool CircleCollider::isHitTest(const CircleCollider& _circleCollider)
 	{
 		auto dist = _circleCollider.position - position;
@@ -93,9 +87,23 @@ namespace gnCollider2D {
 		return false;
 	}
 
+	bool CircleCollider::isHitTest(const LineCollider& _collider){
+		return false;
+	}
+
+	bool CircleCollider::isHitTest(const PointCollider& _collider){
+		return false;
+	}
+
 	bool CircleCollider::isHitTest(const PolygonCollider& _collider)
 	{
 		return false;
+	}
+
+	void CircleCollider::update(const Vector2& _vector, float _radius)
+	{
+		position.setPos(_vector);
+		radius = _radius;
 	}
 
 	const Vector2& CircleCollider::getPos() const

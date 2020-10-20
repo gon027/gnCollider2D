@@ -21,9 +21,18 @@ namespace gnCollider2D {
 		return ColliderType::POINT;
 	}
 
-	void PointCollider::update(const Vector2 _pos)
+	bool PointCollider::isHitTest(const BoxCollider& _collider)
 	{
-		position = _pos;
+		return false;
+	}
+
+	bool PointCollider::isHitTest(const CircleCollider& _collider)
+	{
+		return false;
+	}
+
+	bool PointCollider::isHitTest(const LineCollider& _collider){
+		return false;
 	}
 
 	bool PointCollider::isHitTest(const PointCollider& _collider)
@@ -37,34 +46,13 @@ namespace gnCollider2D {
 		return false;
 	}
 
-	bool PointCollider::isHitTest(const BoxCollider& _collider)
-	{
-		auto min = _collider.getMin();
-		auto max = _collider.getMax();
-
-		if (position.x >= min.x &&
-			position.x <= max.x &&
-			position.y >= min.y &&
-			position.y <= max.y) {
-			return true;
-		}
-
+	bool PointCollider::isHitTest(const PolygonCollider& _collider){
 		return false;
 	}
 
-	bool PointCollider::isHitTest(const CircleCollider& _collider)
+	void PointCollider::update(const Vector2 _pos)
 	{
-		//auto a = p - position;
-
-
-		//if()
-
-		return false;
-	}
-
-	bool PointCollider::isHitTest(const PolygonCollider& _collider)
-	{
-		return false;
+		position = _pos;
 	}
 
 	Vector2& PointCollider::getPos()

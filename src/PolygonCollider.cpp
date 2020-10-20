@@ -10,4 +10,27 @@ namespace gnCollider2D{
     {    
     }
 
+    ColliderType PolygonCollider::getType(){
+        return ColliderType::POLYGON;
+    }
+
+    bool PolygonCollider::isHitTest(const BoxCollider& _collider){
+        return false;
+    }
+
+     bool PolygonCollider::isHitTest(const CircleCollider& _collider){
+        return false;
+    }
+
+     bool PolygonCollider::isHitTest(const LineCollider& _collider){
+        return false;
+    }
+
+     bool PolygonCollider::isHitTest(const PointCollider& _collider){
+        return false;
+    }
+
+     bool PolygonCollider::isHitTest(const PolygonCollider& _collider){
+        return false;
+    }
 }

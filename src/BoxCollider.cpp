@@ -27,7 +27,7 @@ namespace gnCollider2D {
 		return false;
 	}
 
-	bool gnCollider2D::BoxCollider::isHitTest(const CircleCollider& _collider)
+	bool BoxCollider::isHitTest(const CircleCollider& _collider)
 	{
 		auto c = _collider;
 		auto &b = bounds;
@@ -68,6 +68,14 @@ namespace gnCollider2D {
 		if (d < r)
 			return true;
 
+		return false;
+	}
+
+	bool BoxCollider::isHitTest(const PointCollider& _collider){
+		return false;
+	}
+
+	bool BoxCollider::isHitTest(const LineCollider& _collider){
 		return false;
 	}
 
