@@ -111,7 +111,7 @@ namespace gnCollider2D {
 		return position;
 	}
 
-	float CircleCollider::getRadius()
+	const float CircleCollider::getRadius() const 
 	{
 		return radius;
 	}
