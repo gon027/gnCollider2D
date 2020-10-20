@@ -12,7 +12,7 @@ namespace gnCollider2D {
 		BoxCollider() = default;
 		~BoxCollider() = default;
 
-		virtual ColliderType getType() override;
+		ColliderType getType() override;
 
 		bool isHitTest(const BoxCollider&     _collider) override;
 		bool isHitTest(const CircleCollider&  _collider) override;

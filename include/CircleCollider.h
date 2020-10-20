@@ -23,7 +23,7 @@ namespace gnCollider2D {
 
 		void update(const Vector2& _vector, float _radius);
 
-		Vector2& getPos();
+		const Vector2& getPos() const;
 		float getRadius();
 
 	private:

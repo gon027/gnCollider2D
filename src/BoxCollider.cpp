@@ -3,12 +3,9 @@
 #include "../include/LineCollider.h"
 #include "../include/PointCollider.h"
 #include "../include/PolygonCollider.h"
+#include "../include/Math/Math.h"
 
 namespace gnCollider2D {
-
-	float dist(float _x, float _y){
-		return _x * _x + _y * _y;
-	}
 
 	ColliderType BoxCollider::getType()
 	{
