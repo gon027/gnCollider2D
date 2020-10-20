@@ -22,9 +22,9 @@ namespace gnCollider2D {
 
         void update(const Vector2& _sv, const Vector2& _gv);
 
-        Vector2 getStart();
-        Vector2 getEnd();
-        Vector2 getLength();
+        const Vector2& getStart()  const;
+        const Vector2& getEnd()    const;
+        const Vector2& getLength() const;
 
     private:
         Vector2 start;

@@ -36,6 +36,19 @@ namespace gnCollider2D {
         return false;
     }
 
+    bool LineCollider::isHitTest(const LineCollider& _collider) {
+        // A: col.start, B: col.end, C: start, D: end
+
+        auto& col = _collider;
+
+        auto t1 = (start.x - end.x) * (col.start.y - start.y) + (start.y - end.y) * (start.x - col.start.x);
+        auto t2 = (start.x - end.x) * (col.end.y - start.y) + (start.y - end.y) * (start.x - col.end.x);
+        auto t3 = (col.start.x - col.end.x) * (end.x - col.start.x) + (col.start.y - col.end.y) * (start.x - col.end.x);
+        auto t4 = (col.start.x - col.end.x) * (end.y - col.start.x) + (col.start.y - col.end.y) * (start.x - end.x);
+
+        return t3 * t4 < 0 && t1 * t2 < 0;
+    }
+
     bool LineCollider::isHitTest(const PointCollider& _collider) {
         return false;
     }
@@ -44,15 +57,15 @@ namespace gnCollider2D {
         return false;
     }
 
-    Vector2 LineCollider::getStart() { 
+    const Vector2& LineCollider::getStart() const { 
         return start; 
     }
 
-    Vector2 LineCollider::getEnd() {
+    const Vector2& LineCollider::getEnd() const {
         return end;
     }
 
-    Vector2 LineCollider::getLength() {
-        return end - start;
+    const Vector2& LineCollider::getLength() const {
+        return Vector2{ end - start };
     }
 }

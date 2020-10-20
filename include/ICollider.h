@@ -1,7 +1,13 @@
 #ifndef ICOLLIDER_H
 #define ICOLLIDER_H
 
+#include <vector>
+
 namespace gnCollider2D {
+
+	class Vector2;
+
+	using PointList = std::vector<Vector2>;
 
 	class BoxCollider;
 	class CircleCollider;
@@ -28,6 +34,8 @@ namespace gnCollider2D {
 		virtual bool isHitTest(const LineCollider&    _collider) = 0;
 		virtual bool isHitTest(const PointCollider&   _collider) = 0;
 		virtual bool isHitTest(const PolygonCollider& _collider) = 0;
+
+		// const virtual PointList isHitTest(const ICollider& _collider) = 0;
 	};
 
 }
