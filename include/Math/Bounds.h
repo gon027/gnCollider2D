@@ -6,11 +6,11 @@
 namespace gnCollider2D {
 
 	struct Bounds {
-		Vector2 leftTop;
-		Vector2 leftBottom;
-		Vector2 rightTop;
-		Vector2 rightBottom;
-
+		Vector2 center;
+		Vector2 minPos;
+		Vector2 maxPos;
+		Vector2 size;
+		
 		Bounds()  = default;
 		~Bounds() = default;
 	};

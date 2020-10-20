@@ -6,9 +6,8 @@
 
 namespace gnCollider2D {
 
-	BoxCollider::BoxCollider(const Vector2& _pos, const Vector2& _min, const Vector2& _max)
-		: center(_pos)
-	{
+	float dist(float _x, float _y){
+		return _x * _x + _y * _y;
 	}
 
 	ColliderType BoxCollider::getType()
@@ -18,10 +17,12 @@ namespace gnCollider2D {
 
 	bool BoxCollider::isHitTest(const BoxCollider& _collider)
 	{
-		if (getMax().x >= _collider.getMin().x
-			&& getMin().x <= _collider.getMax().x
-			&& getMax().y >= _collider.getMin().y
-			&& getMin().y <= _collider.getMax().y)
+		auto &cb = _collider.getBounds();
+
+		if (bounds.maxPos.x >= cb.minPos.x 
+			&& bounds.minPos.x <= cb.maxPos.x 
+			&& bounds.maxPos.y >= cb.minPos.y 
+			&& bounds.minPos.y <= cb.maxPos.y)
 		{
 			return true;
 		}
@@ -31,6 +32,45 @@ namespace gnCollider2D {
 
 	bool gnCollider2D::BoxCollider::isHitTest(const CircleCollider& _collider)
 	{
+		auto c = _collider;
+		auto &b = bounds;
+
+		if (c.getPos().x > b.minPos.x && c.getPos().x < b.maxPos.x && c.getPos().y > b.minPos.y - c.getRadius() && c.getPos().y < b.maxPos.y + c.getRadius())
+		{
+			return true;
+		}
+
+		if (c.getPos().x > b.minPos.x - c.getRadius() && c.getPos().x < b.maxPos.x + c.getRadius() && c.getPos().y > b.minPos.y && c.getPos().y < b.maxPos.y)
+		{
+			return true;
+		}
+
+		float r = c.getRadius() * c.getRadius();
+
+		float rx = bounds.minPos.x - c.getPos().x;
+		float ry = bounds.minPos.y - c.getPos().y;
+		float d = dist(rx, ry);
+		if (d < r)
+			return true;
+
+		rx = bounds.maxPos.x - c.getPos().x;
+		ry = bounds.minPos.y - c.getPos().y;
+		d = dist(rx, ry);
+		if (d < r)
+			return true;
+
+		rx = bounds.maxPos.x - c.getPos().x;
+		ry = bounds.maxPos.y - c.getPos().y;
+		d = dist(rx, ry);
+		if (d < r)
+			return true;
+
+		rx = bounds.minPos.x - c.getPos().x;
+		ry = bounds.maxPos.y - c.getPos().y;
+		d = dist(rx, ry);
+		if (d < r)
+			return true;
+
 		return false;
 	}
 
@@ -39,31 +79,19 @@ namespace gnCollider2D {
 		return false;
 	}
 
-	void BoxCollider::update(const Vector2& _pos, const Bounds& _bounds)
+	void BoxCollider::update(const Vector2 &_v, float _width, float _height)
 	{
-		center.setPos(_pos);
-		bounds = _bounds;
-		size.setPos(bounds.rightBottom - bounds.leftTop);
+		auto w = _width / 2.0f;
+		auto h = _height / 2.0f;
+
+		bounds.center = _v;
+		bounds.minPos.setPos(_v.x - w, _v.y - h);
+		bounds.maxPos.setPos(_v.x + w, _v.y + h);
+		bounds.size.setPos(_width, _height);
 	}
 
-	Vector2 BoxCollider::getPos() const
+	const Bounds &BoxCollider::getBounds() const
 	{
-		return center;
+		return bounds;
 	}
-
-	Vector2 BoxCollider::getMin() const
-	{
-		return bounds.leftTop;
-	}
-
-	Vector2 BoxCollider::getMax() const
-	{
-		return bounds.rightBottom;
-	}
-
-	Vector2 BoxCollider::getSize() const
-	{
-		return size;
-	}
-	
 }

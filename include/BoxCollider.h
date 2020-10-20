@@ -9,7 +9,6 @@ namespace gnCollider2D {
 
 	class BoxCollider : public ICollider {
 	public:
-		BoxCollider(const Vector2& _pos, const Vector2& _min, const Vector2& _max);
 		BoxCollider() = default;
 		~BoxCollider() = default;
 
@@ -21,16 +20,11 @@ namespace gnCollider2D {
 		bool isHitTest(const PointCollider&   _collider) override;
 		bool isHitTest(const PolygonCollider& _collider) override;
 
-		void update(const Vector2& _pos, const Bounds& _bounds);
+		void update(const Vector2 &_v, float _width, float _height);
 
-		Vector2 getPos() const;
-		Vector2 getMin() const;
-		Vector2 getMax() const;
-		Vector2 getSize() const;
+		const Bounds& getBounds() const;
 
 	private:
-		Vector2 center;
-		Vector2 size;
 		Bounds bounds;
 	};
 	
