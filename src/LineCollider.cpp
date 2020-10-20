@@ -33,6 +33,32 @@ namespace gnCollider2D {
     }
 
     bool LineCollider::isHitTest(const CircleCollider& _collider) {
+        // 始点から円の中心へのベクトル
+        auto a = Vector2{ _collider.getPos().x - start.x, _collider.getPos().y - end.y };
+        
+        // 終点から円の中心へのベクトル
+        auto b = Vector2{ _collider.getPos().x - end.x, _collider.getPos().y - end.y };
+        
+        // 線分の長さ
+        auto length = getLength();
+        auto nomal = length.normalized();
+
+        // 中心から線分への最短距離
+        float projection = a.x * nomal.y - nomal.x * b.y;
+
+        if(fabs(projection) < _collider.getRadius()){
+            float dot1 = a.x * length.x + a.y * length.y;
+            float dot2 = b.x * length.x * b.y * length.y;
+
+            if(dot1 * dot2 <= 0.0f){
+                return true;
+            }
+
+            if(a.magnitude() < _collider.getRadius() || b.magnitude() < _collider.getRadius()){
+                return true;
+            }
+        }
+
         return false;
     }
 
