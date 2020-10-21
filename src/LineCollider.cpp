@@ -4,6 +4,8 @@
 #include "../include/PointCollider.h"
 #include "../include/PolygonCollider.h"
 
+#include <cmath>
+
 namespace gnCollider2D {
 
     LineCollider::LineCollider()
@@ -23,12 +25,13 @@ namespace gnCollider2D {
         return ColliderType::LINE;
     }
 
-    void LineCollider::update(const Vector2& _sv, const Vector2& _gv) {
-        start = _sv;
-        end = _gv;
+    float cross(float _x1, float _y1, float _x2, float _y2){
+        return _x1 * _y2 - _x2 * _y1;
     }
 
     bool LineCollider::isHitTest(const BoxCollider& _collider) {
+        const auto& bounds = _collider.getBounds();
+
         return false;
     }
 
@@ -63,16 +66,17 @@ namespace gnCollider2D {
     }
 
     bool LineCollider::isHitTest(const LineCollider& _collider) {
-        // A: col.start, B: col.end, C: start, D: end
-
         auto& col = _collider;
 
-        auto t1 = (start.x - end.x) * (col.start.y - start.y) + (start.y - end.y) * (start.x - col.start.x);
-        auto t2 = (start.x - end.x) * (col.end.y - start.y) + (start.y - end.y) * (start.x - col.end.x);
-        auto t3 = (col.start.x - col.end.x) * (end.x - col.start.x) + (col.start.y - col.end.y) * (start.x - col.end.x);
-        auto t4 = (col.start.x - col.end.x) * (end.y - col.start.x) + (col.start.y - col.end.y) * (start.x - end.x);
+        float ax{ start.x     }, ay{ start.y     }, bx{ end.x     }, by{ end.y     };
+        float cx{ col.start.x }, cy{ col.start.y }, dx{ col.end.x }, dy{ col.end.y };
 
-        return t3 * t4 < 0 && t1 * t2 < 0;
+        auto t1 { (cx - dx) * (ay - cy) + (cy - dy) * (cx - ax) };
+        auto t2 { (cx - dx) * (by - cy) + (cy - dy) * (cx - bx) };
+        auto t3 { (ax - bx) * (cy - ay) + (ay - by) * (ax - cx) };
+        auto t4 { (ax - bx) * (dy - ay) + (ay - by) * (ax - dx) };
+
+        return t3 * t4 <= 0 && t1 * t2 <= 0;
     }
 
     bool LineCollider::isHitTest(const PointCollider& _collider) {
@@ -81,6 +85,12 @@ namespace gnCollider2D {
 
     bool LineCollider::isHitTest(const PolygonCollider& _collider) {
         return false;
+    }
+
+    void LineCollider::update(const Vector2 &_sv, const Vector2 &_gv)
+    {
+        start = _sv;
+        end = _gv;
     }
 
     const Vector2& LineCollider::getStart() const { 
