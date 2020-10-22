@@ -10,25 +10,25 @@ namespace gnCollider2D {
 
 	bool BoxCollider::isHitTest(const BoxCollider& _collider)
 	{
-		return intersect(this, _collider);
+		return intersect(*this, _collider);
 	}
 
 	bool BoxCollider::isHitTest(const CircleCollider& _collider)
 	{
-		return intersect(this, _collider);
+		return intersect(*this, _collider);
 	}
 
 	bool BoxCollider::isHitTest(const PointCollider& _collider){
-		return intersect(this, _collider);
+		return intersect(*this, _collider);
 	}
 
 	bool BoxCollider::isHitTest(const LineCollider& _collider){
-		return intersect(this, _collider);
+		return intersect(*this, _collider);
 	}
 
 	bool gnCollider2D::BoxCollider::isHitTest(const PolygonCollider& _collider)
 	{
-		return intersect(this, _collider);
+		return intersect(*this, _collider);
 	}
 
 	void BoxCollider::update(const Vector2 &_v, float _width, float _height)
