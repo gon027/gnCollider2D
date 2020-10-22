@@ -1,9 +1,4 @@
 #include "../include/BoxCollider.h"
-#include "../include/CircleCollider.h"
-#include "../include/LineCollider.h"
-#include "../include/PointCollider.h"
-#include "../include/PolygonCollider.h"
-#include "../include/Math/Math.h"
 #include "../include/HitTest.h"
 
 namespace gnCollider2D {
@@ -15,17 +10,7 @@ namespace gnCollider2D {
 
 	bool BoxCollider::isHitTest(const BoxCollider& _collider)
 	{
-		auto &cb = _collider.getBounds();
-
-		if (bounds.maxPos.x >= cb.minPos.x 
-			&& bounds.minPos.x <= cb.maxPos.x 
-			&& bounds.maxPos.y >= cb.minPos.y 
-			&& bounds.minPos.y <= cb.maxPos.y)
-		{
-			return true;
-		}
-
-		return false;
+		return intersect(this, _collider);
 	}
 
 	bool BoxCollider::isHitTest(const CircleCollider& _collider)

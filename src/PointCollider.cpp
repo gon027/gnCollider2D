@@ -55,7 +55,7 @@ namespace gnCollider2D {
 		position = _pos;
 	}
 
-	Vector2& PointCollider::getPos()
+	const Vector2& PointCollider::getPos() const
 	{
 		return position;
 	}

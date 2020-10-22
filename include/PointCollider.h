@@ -22,7 +22,7 @@ namespace gnCollider2D {
 
 		void update(const Vector2 _pos);
 
-		Vector2& getPos();
+		const Vector2& getPos() const ;
 
 	private:
 		Vector2 position;
