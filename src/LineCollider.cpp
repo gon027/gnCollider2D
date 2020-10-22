@@ -8,11 +8,6 @@
 
 namespace gnCollider2D {
 
-    float cross(float _x1, float _y1, float _x2, float _y2)
-    {
-        return _x1 * _y2 - _x2 * _y1;
-    }
-
     bool hitLine(float ax, float ay, float bx, float by, float cx, float cy, float dx, float dy)
     {
         auto t1{(cx - dx) * (ay - cy) + (cy - dy) * (cx - ax)};

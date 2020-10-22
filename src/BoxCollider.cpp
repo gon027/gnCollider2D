@@ -4,6 +4,7 @@
 #include "../include/PointCollider.h"
 #include "../include/PolygonCollider.h"
 #include "../include/Math/Math.h"
+#include "../include/HitTest.h"
 
 namespace gnCollider2D {
 

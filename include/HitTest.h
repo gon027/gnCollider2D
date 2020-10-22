@@ -23,8 +23,8 @@ namespace gnCollider2D {
     }
 
     // 衝突判定の関数
-    bool isHitTest(const BoxCollider     &_box,     const BoxCollider     &_collider){
-        auto &bounds = _box.getBounds();
+    bool isHitTest(const BoxCollider     *_box,     const BoxCollider     &_collider){
+        auto &bounds = _box->getBounds();
         auto &cb = _collider.getBounds();
 
         if (bounds.maxPos.x >= cb.minPos.x && bounds.minPos.x <= cb.maxPos.x 
@@ -36,12 +36,12 @@ namespace gnCollider2D {
         return false;
     }
 
-    bool isHitTest(const BoxCollider     &_box,     const CircleCollider  &_collider){
+    bool isHitTest(const BoxCollider     *_box,     const CircleCollider  &_collider){
         return false;
     }
 
-    bool isHitTest(const BoxCollider     &_box,     const LineCollider    &_collider){
-        const auto& bounds = _box.getBounds();
+    bool isHitTest(const BoxCollider     *_box,     const LineCollider    &_collider){
+        const auto& bounds = _box->getBounds();
         const auto& col = _collider;
 
         float ax{bounds.minPos.x}, ay{bounds.minPos.y}, bx{bounds.minPos.x}, by{bounds.maxPos.y};
@@ -50,18 +50,64 @@ namespace gnCollider2D {
         return isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy);
     }
 
-    bool isHitTest(const BoxCollider     &_box,     const PointCollider   &_collider);
-    bool isHitTest(const BoxCollider     &_box,     const PolygonCollider &_collider);
-    bool isHitTest(const CircleCollider  &_circle,  const CircleCollider  &_collider);
-    bool isHitTest(const CircleCollider  &_circle,  const LineCollider    &_collider);
-    bool isHitTest(const CircleCollider  &_circle,  const PointCollider   &_collider);
-    bool isHitTest(const CircleCollider  &_circle,  const PolygonCollider &_collider);
-    bool isHitTest(const LineCollider    &_line,    const LineCollider    &_collider);
-    bool isHitTest(const LineCollider    &_line,    const PointCollider   &_collider);
-    bool isHitTest(const LineCollider    &_line,    const PolygonCollider &_collider);
-    bool isHitTest(const PointCollider   &_point,   const PointCollider   &_collider);
-    bool isHitTest(const PointCollider   &_point,   const PolygonCollider &_collider);
-    bool isHitTest(const PolygonCollider &_polygon, const PolygonCollider &_collider);
+    bool isHitTest(const BoxCollider     *_box,     const PointCollider   &_collider){
+        return false;
+    }
+
+    bool isHitTest(const BoxCollider     *_box,     const PolygonCollider &_collider){
+        return false;
+    }
+
+    bool isHitTest(const CircleCollider  *_circle,  const CircleCollider  &_collider){
+        auto dist{_collider.getPos() - _circle->getPos()};
+        auto c{dist.magnitude()};
+        auto r{_collider.getRadius() + _circle->getRadius()};
+
+        if(c <= r * r){
+            return true;
+        }
+
+        return false;
+    }
+
+    bool isHitTest(const CircleCollider  *_circle,  const LineCollider    &_collider){
+        return false;
+    }
+
+    bool isHitTest(const CircleCollider  *_circle,  const PointCollider   &_collider){
+        return false;
+    }
+
+    bool isHitTest(const CircleCollider  *_circle,  const PolygonCollider &_collider){
+        return false;
+    }
+
+    bool isHitTest(const LineCollider    *_line,    const LineCollider    &_collider){
+        float ax{_line->getStart().x},    ay{_line->getStart().y},    bx{_line->getEnd().x},    by{_line->getStart().y};
+        float cx{_collider.getStart().x}, cy{_collider.getStart().y}, dx{_collider.getEnd().x}, dy{_collider.getEnd().y};
+
+        return isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy);
+    }
+
+    bool isHitTest(const LineCollider    *_line,    const PointCollider   &_collider){
+        return false;
+    }
+
+    bool isHitTest(const LineCollider    *_line,    const PolygonCollider &_collider){
+        return false;
+    }
+
+    bool isHitTest(const PointCollider   *_point,   const PointCollider   &_collider){
+        return false;
+    }
+
+    bool isHitTest(const PointCollider   *_point,   const PolygonCollider &_collider){
+        return false;
+    }
+
+    bool isHitTest(const PolygonCollider *_polygon, const PolygonCollider &_collider){
+        return false;
+    }
 
 }
 
