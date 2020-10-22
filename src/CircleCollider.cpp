@@ -1,9 +1,5 @@
 #include "../include/CircleCollider.h"
-#include "../include/BoxCollider.h"
-#include "../include/LineCollider.h"
-#include "../include/PointCollider.h"
-#include "../include/PolygonCollider.h"
-#include "../include/Math/Math.h"
+#include "../include/HitTest.h"
 
 namespace gnCollider2D {
 
@@ -31,73 +27,27 @@ namespace gnCollider2D {
 		return ColliderType::CIRCLE;
 	}
 
-	bool CircleCollider::isHitTest(const CircleCollider& _circleCollider)
+	bool CircleCollider::isHitTest(const CircleCollider &_collider)
 	{
-		auto dist = _circleCollider.position - position;
-		auto c = dist.magnitude();
-		auto r = _circleCollider.radius + this->radius;
-
-		if (c <= r * r)
-		{
-			return true;
-		}
-
-		return false;
+		return intersect(this, _collider);
 	}
 
 	bool CircleCollider::isHitTest(const BoxCollider& _collider)
 	{
-		auto& b = _collider.getBounds();
-		auto& p = position;
-
-		if (p.x > b.minPos.x && p.x < b.maxPos.x && p.y > b.minPos.y - radius && p.y < b.maxPos.y + radius)
-		{
-			return true;
-		}
-
-		if (p.x > b.minPos.x - radius && p.x < b.maxPos.x + radius && p.y > b.minPos.y && p.y < b.maxPos.y)
-		{
-			return true;
-		}
-
-		float r = radius * radius;
-
-		float rx = b.minPos.x - p.x;
-		float ry = b.minPos.y - p.y;
-		float d = dist(rx, ry);
-		if (d < r) return true;
-
-		rx = b.maxPos.x - p.x;
-		ry = b.minPos.y - p.y;
-		d = dist(rx, ry);
-		if (d < r) return true;
-
-		rx = b.maxPos.x - p.x;
-		ry = b.maxPos.y - p.y;
-		d = dist(rx, ry);
-		if (d < r) return true;
-
-		rx = b.minPos.x - p.x;
-		ry = b.maxPos.y - p.y;
-		d = dist(rx, ry);
-		if (d < r) return true;
-
-		return false;
-
-		return false;
+		return intersect(&_collider, *this);
 	}
 
 	bool CircleCollider::isHitTest(const LineCollider& _collider){
-		return false;
+		return intersect(this, _collider);
 	}
 
 	bool CircleCollider::isHitTest(const PointCollider& _collider){
-		return false;
+		return intersect(this, _collider);
 	}
 
 	bool CircleCollider::isHitTest(const PolygonCollider& _collider)
 	{
-		return false;
+		return intersect(this, _collider);
 	}
 
 	void CircleCollider::update(const Vector2& _vector, float _radius)
