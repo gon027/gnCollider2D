@@ -4,7 +4,6 @@
 #include "Vector2.h"
 
 namespace gnCollider2D {
-
 	struct Bounds {
 		Vector2 center;
 		Vector2 minPos;
