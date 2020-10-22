@@ -29,25 +29,25 @@ namespace gnCollider2D {
 
 	bool CircleCollider::isHitTest(const CircleCollider &_collider)
 	{
-		return intersect(*this, _collider);
+		return Intersect::intersect(*this, _collider);
 	}
 
 	bool CircleCollider::isHitTest(const BoxCollider& _collider)
 	{
-		return intersect(_collider, *this);
+		return Intersect::intersect(_collider, *this);
 	}
 
 	bool CircleCollider::isHitTest(const LineCollider& _collider){
-		return intersect(*this, _collider);
+		return Intersect::intersect(*this, _collider);
 	}
 
 	bool CircleCollider::isHitTest(const PointCollider& _collider){
-		return intersect(*this, _collider);
+		return Intersect::intersect(*this, _collider);
 	}
 
 	bool CircleCollider::isHitTest(const PolygonCollider& _collider)
 	{
-		return intersect(*this, _collider);
+		return Intersect::intersect(*this, _collider);
 	}
 
 	void CircleCollider::update(const Vector2& _vector, float _radius)

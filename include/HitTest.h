@@ -37,186 +37,212 @@ namespace gnCollider2D {
         }
     }
 
-    //
-    // BoxCollider
-    //
+    namespace Intersect{
 
-    // Box vs Box
-    inline bool intersect(const BoxCollider     &_box,     const BoxCollider     &_collider){
-        auto &bounds = _box.getBounds();
-        auto &cb = _collider.getBounds();
+        //
+        // BoxCollider
+        //
 
-        return isCheckBox(bounds.minPos.x, bounds.minPos.y, bounds.maxPos.x, bounds.maxPos.y,
-                        cb.minPos.x, cb.minPos.y, cb.maxPos.x, cb.minPos.y);
-    }
+        // Box vs Box
+        inline bool intersect(const BoxCollider     &_box,     const BoxCollider     &_collider){
+            auto &bounds = _box.getBounds();
+            auto &cb = _collider.getBounds();
 
-    // Box vs Circle
-    inline bool intersect(const BoxCollider     &_box,     const CircleCollider  &_collider){
-        auto &c = _collider;
-        auto &bounds = _box.getBounds();
-
-        if (c.getPos().x > bounds.minPos.x && c.getPos().x < bounds.maxPos.x && c.getPos().y > bounds.minPos.y - c.getRadius() && c.getPos().y < bounds.maxPos.y + c.getRadius())
-        {
-            return true;
+            return isCheckBox(bounds.minPos.x, bounds.minPos.y, bounds.maxPos.x, bounds.maxPos.y,
+                            cb.minPos.x, cb.minPos.y, cb.maxPos.x, cb.minPos.y);
         }
 
-        if (c.getPos().x > bounds.minPos.x - c.getRadius() && c.getPos().x < bounds.maxPos.x + c.getRadius() && c.getPos().y > bounds.minPos.y && c.getPos().y < bounds.maxPos.y)
-        {
-            return true;
-        }
+        // Box vs Circle
+        inline bool intersect(const BoxCollider     &_box,     const CircleCollider  &_collider){
+            auto &c = _collider;
+            auto &bounds = _box.getBounds();
 
-        float r = c.getRadius() * c.getRadius();
-
-        float rx = bounds.minPos.x - c.getPos().x;
-        float ry = bounds.minPos.y - c.getPos().y;
-        float d = dist(rx, ry);
-        if (d < r)
-            return true;
-
-        rx = bounds.maxPos.x - c.getPos().x;
-        ry = bounds.minPos.y - c.getPos().y;
-        d = dist(rx, ry);
-        if (d < r)
-            return true;
-
-        rx = bounds.maxPos.x - c.getPos().x;
-        ry = bounds.maxPos.y - c.getPos().y;
-        d = dist(rx, ry);
-        if (d < r)
-            return true;
-
-        rx = bounds.minPos.x - c.getPos().x;
-        ry = bounds.maxPos.y - c.getPos().y;
-        d = dist(rx, ry);
-        if (d < r)
-            return true;
-
-        return false;
-    }
-
-    // Box vs Line
-    inline bool intersect(const BoxCollider     &_box,     const LineCollider    &_collider){
-        const auto& bounds = _box.getBounds();
-        const auto& col = _collider;
-
-        float ax{bounds.minPos.x},  ay{bounds.minPos.y},  bx{bounds.minPos.x}, by{bounds.maxPos.y};
-        float cx{col.getStart().x}, cy{col.getStart().y}, dx{col.getEnd().x},  dy{col.getEnd().y};
-
-        return isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy);
-    }
-
-    // Box vs Point
-    inline bool intersect(const BoxCollider     &_box,     const PointCollider   &_collider){
-        auto& bounds = _box.getBounds();
-        auto& pos = _collider.getPos();
-
-        if(pos.x >= bounds.minPos.x && pos.x <= bounds.maxPos.x && pos.y >= bounds.minPos.y && pos.y <= bounds.maxPos.y){
-            return true;
-        }
-
-        return false;
-    }
-
-    // Box vs Polygon
-    inline bool intersect(const BoxCollider     &_box,     const PolygonCollider &_collider){
-        return false;
-    }
-
-    //
-    // CiccleCollider
-    //
-    // Circle vs Circle
-    inline bool intersect(const CircleCollider  &_circle,  const CircleCollider  &_collider){
-        auto dist{_collider.getPos() - _circle.getPos()};
-        auto c{dist.magnitude()};
-        auto r{_collider.getRadius() + _circle.getRadius()};
-
-        if(c <= r * r){
-            return true;
-        }
-
-        return false;
-    }
-
-    // Circle vs Line
-    inline bool intersect(const CircleCollider  &_circle,  const LineCollider    &_collider){
-        // 始点から円の中心へのベクトル
-        auto a = Vector2{_circle.getPos().x - _collider.getStart().x, _circle.getPos().y - _collider.getEnd().y};
-
-        // 終点から円の中心へのベクトル
-        auto b = Vector2{_circle.getPos().x - _collider.getEnd().x, _circle.getPos().y - _collider.getEnd().y};
-
-        // 線分の長さ
-        auto length = _collider.getLength();
-        auto nomal = length.normalized();
-
-        // 中心から線分への最短距離
-        float projection = a.x * nomal.y - nomal.x * b.y;
-
-        if (std::fabs(projection) < _circle.getRadius())
-        {
-            float dot1 = a.x * length.x + a.y * length.y;
-            float dot2 = b.x * length.x * b.y * length.y;
-
-            if (dot1 * dot2 <= 0.0f)
+            if (c.getPos().x > bounds.minPos.x && c.getPos().x < bounds.maxPos.x 
+                && c.getPos().y > bounds.minPos.y - c.getRadius() && c.getPos().y < bounds.maxPos.y + c.getRadius())
             {
                 return true;
             }
 
-            if (a.magnitude() < _circle.getRadius() || b.magnitude() < _circle.getRadius())
+            if (c.getPos().x > bounds.minPos.x - c.getRadius() && c.getPos().x < bounds.maxPos.x + c.getRadius() 
+                && c.getPos().y > bounds.minPos.y && c.getPos().y < bounds.maxPos.y)
             {
                 return true;
             }
+
+            float r = c.getRadius() * c.getRadius();
+
+            float rx = bounds.minPos.x - c.getPos().x;
+            float ry = bounds.minPos.y - c.getPos().y;
+            float d = dist(rx, ry);
+            if (d < r)
+                return true;
+
+            rx = bounds.maxPos.x - c.getPos().x;
+            ry = bounds.minPos.y - c.getPos().y;
+            d = dist(rx, ry);
+            if (d < r)
+                return true;
+
+            rx = bounds.maxPos.x - c.getPos().x;
+            ry = bounds.maxPos.y - c.getPos().y;
+            d = dist(rx, ry);
+            if (d < r)
+                return true;
+
+            rx = bounds.minPos.x - c.getPos().x;
+            ry = bounds.maxPos.y - c.getPos().y;
+            d = dist(rx, ry);
+            if (d < r)
+                return true;
+
+            return false;
         }
 
-        return false;
-    }
+        // Box vs Line
+        inline bool intersect(const BoxCollider     &_box,     const LineCollider    &_collider){
+            const auto& bounds = _box.getBounds();
+            const auto& col = _collider;
 
-    // Circle vs Point
-    inline bool intersect(const CircleCollider  &_circle,  const PointCollider   &_collider){
-        return false;
-    }
+            float ax{bounds.minPos.x},  ay{bounds.minPos.y},  bx{bounds.minPos.x}, by{bounds.maxPos.y};
+            float cx{col.getStart().x}, cy{col.getStart().y}, dx{col.getEnd().x},  dy{col.getEnd().y};
 
-    inline bool intersect(const CircleCollider  &_circle,  const PolygonCollider &_collider){
-        return false;
-    }
+            return isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy);
+        }
 
-    //
-    // LineCollider
-    //
-    inline bool intersect(const LineCollider    &_line,    const LineCollider    &_collider){
-        float ax{_line.getStart().x},    ay{_line.getStart().y},    bx{_line.getEnd().x},    by{_line.getStart().y};
-        float cx{_collider.getStart().x}, cy{_collider.getStart().y}, dx{_collider.getEnd().x}, dy{_collider.getEnd().y};
+        // Box vs Point
+        inline bool intersect(const BoxCollider     &_box,     const PointCollider   &_collider){
+            auto& bounds = _box.getBounds();
+            auto& pos = _collider.getPos();
 
-        return isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy);
-    }
+            if(pos.x >= bounds.minPos.x && pos.x <= bounds.maxPos.x && pos.y >= bounds.minPos.y && pos.y <= bounds.maxPos.y){
+                return true;
+            }
 
-    inline bool intersect(const LineCollider    &_line,    const PointCollider   &_collider){
-        return false;
-    }
+            return false;
+        }
 
-    inline bool intersect(const LineCollider    &_line,    const PolygonCollider &_collider){
-        return false;
-    }
+        // Box vs Polygon
+        inline bool intersect(const BoxCollider     &_box,     const PolygonCollider &_collider){
+            return false;
+        }
 
-    //
-    // PointCollider
-    //
-    inline bool intersect(const PointCollider   &_point,   const PointCollider   &_collider){
-        return false;
-    }
+        //
+        // CiccleCollider
+        //
+        // Circle vs Circle
+        inline bool intersect(const CircleCollider  &_circle,  const CircleCollider  &_collider){
+            auto dist{_collider.getPos() - _circle.getPos()};
+            auto c{dist.magnitude()};
+            auto r{_collider.getRadius() + _circle.getRadius()};
 
-    inline bool intersect(const PointCollider   &_point,   const PolygonCollider &_collider){
-        return false;
-    }
+            if(c <= r * r){
+                return true;
+            }
 
-    //
-    // PolygonCollider
-    //
-    inline bool intersect(const PolygonCollider &_polygon, const PolygonCollider &_collider){
-        return false;
-    }
+            return false;
+        }
 
-}
+        // Circle vs Line
+        inline bool intersect(const CircleCollider  &_circle,  const LineCollider    &_collider){
+            // 始点から円の中心へのベクトル
+            auto a = Vector2{_circle.getPos().x - _collider.getStart().x, _circle.getPos().y - _collider.getEnd().y};
+
+            // 終点から円の中心へのベクトル
+            auto b = Vector2{_circle.getPos().x - _collider.getEnd().x, _circle.getPos().y - _collider.getEnd().y};
+
+            // 線分の長さ
+            auto length = _collider.getLength();
+            auto nomal = length.normalized();
+
+            // 中心から線分への最短距離
+            float projection = a.x * nomal.y - nomal.x * b.y;
+
+            if (std::fabs(projection) < _circle.getRadius())
+            {
+                float dot1 = a.x * length.x + a.y * length.y;
+                float dot2 = b.x * length.x * b.y * length.y;
+
+                if (dot1 * dot2 <= 0.0f)
+                {
+                    return true;
+                }
+
+                if (a.magnitude() < _circle.getRadius() || b.magnitude() < _circle.getRadius())
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // Circle vs Point
+        inline bool intersect(const CircleCollider  &_circle,  const PointCollider   &_collider){
+            return false;
+        }
+
+        inline bool intersect(const CircleCollider  &_circle,  const PolygonCollider &_collider){
+            return false;
+        }
+
+        //
+        // LineCollider
+        //
+
+        // Line vs Line
+        inline bool intersect(const LineCollider    &_line,    const LineCollider    &_collider){
+            float ax{_line.getStart().x},    ay{_line.getStart().y},    bx{_line.getEnd().x},    by{_line.getStart().y};
+            float cx{_collider.getStart().x}, cy{_collider.getStart().y}, dx{_collider.getEnd().x}, dy{_collider.getEnd().y};
+
+            return isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy);
+        }
+
+        // Line vs Point
+        inline bool intersect(const LineCollider    &_line,    const PointCollider   &_collider){
+            Vector2 v1{_line.getEnd().x - _line.getStart().x, _line.getEnd().y - _line.getStart().y};
+            Vector2 v2{_collider.getPos().x - _line.getStart().x, _collider.getPos().y - _line.getStart().y};
+
+            float l1 = std::sqrt(dist(v1.x, v1.y));
+            float l2 = std::sqrt(dist(v2.x, v2.y));
+
+            if ((v1.x * v2.x) + (v1.y * v2.y) == (l1 * l2) && l1 >= l2)
+            {
+                return true;
+            }
+
+            return false;
+        }
+
+        // Line vs Polygon
+        inline bool intersect(const LineCollider    &_line,    const PolygonCollider &_collider){
+            return false;
+        }
+
+        //
+        // PointCollider
+        //
+
+        // Point vs Point
+        inline bool intersect(const PointCollider   &_point,   const PointCollider   &_collider){
+            return false;
+        }
+
+        // Point vs Polygon 
+        inline bool intersect(const PointCollider   &_point,   const PolygonCollider &_collider){
+            return false;
+        }
+
+        //
+        // PolygonCollider
+        //
+
+        // Polygon vs Polygon
+        inline bool intersect(const PolygonCollider &_polygon, const PolygonCollider &_collider){
+            return false;
+        }
+
+    } // Intersect
+
+} // gnCollider
 
 #endif // HITTEST_H
