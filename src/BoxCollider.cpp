@@ -1,5 +1,5 @@
 #include "../include/BoxCollider.h"
-#include "../include/HitTest.h"
+#include "../include/Intersect.h"
 
 namespace gnCollider2D {
 

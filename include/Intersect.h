@@ -39,9 +39,9 @@ namespace gnCollider2D {
 
     namespace Intersect{
 
-        //
+        //-----------------------------------------------
         // BoxCollider
-        //
+        //-----------------------------------------------
 
         // Box vs Box
         inline bool intersect(const BoxCollider     &_box,     const BoxCollider     &_collider){
@@ -126,9 +126,10 @@ namespace gnCollider2D {
             return false;
         }
 
-        //
+        //-----------------------------------------------
         // CiccleCollider
-        //
+        //-----------------------------------------------
+
         // Circle vs Circle
         inline bool intersect(const CircleCollider  &_circle,  const CircleCollider  &_collider){
             auto dist{_collider.getPos() - _circle.getPos()};
@@ -185,9 +186,9 @@ namespace gnCollider2D {
             return false;
         }
 
-        //
+        //-----------------------------------------------
         // LineCollider
-        //
+        //-----------------------------------------------
 
         // Line vs Line
         inline bool intersect(const LineCollider    &_line,    const LineCollider    &_collider){
@@ -218,9 +219,9 @@ namespace gnCollider2D {
             return false;
         }
 
-        //
+        //-----------------------------------------------
         // PointCollider
-        //
+        //-----------------------------------------------
 
         // Point vs Point
         inline bool intersect(const PointCollider   &_point,   const PointCollider   &_collider){
@@ -232,9 +233,9 @@ namespace gnCollider2D {
             return false;
         }
 
-        //
+        //-----------------------------------------------
         // PolygonCollider
-        //
+        //-----------------------------------------------
 
         // Polygon vs Polygon
         inline bool intersect(const PolygonCollider &_polygon, const PolygonCollider &_collider){
