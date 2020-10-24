@@ -26,7 +26,7 @@ namespace gnCollider2D {
 		return Intersect::intersect(*this, _collider);
 	}
 
-	bool gnCollider2D::BoxCollider::isHitTest(const PolygonCollider& _collider)
+	bool BoxCollider::isHitTest(const PolygonCollider& _collider)
 	{
 		return Intersect::intersect(*this, _collider);
 	}

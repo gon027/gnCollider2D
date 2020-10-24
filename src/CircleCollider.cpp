@@ -27,6 +27,7 @@ namespace gnCollider2D {
 		return ColliderType::CIRCLE;
 	}
 
+	
 	bool CircleCollider::isHitTest(const CircleCollider &_collider)
 	{
 		return Intersect::intersect(*this, _collider);

@@ -163,22 +163,22 @@ namespace gnCollider2D {
         // Circle vs Line
         inline bool intersect(const CircleCollider  &_circle,  const LineCollider    &_collider){
             // 始点から円の中心へのベクトル
-            auto a = Vector2{_circle.getPos().x - _collider.getStart().x, _circle.getPos().y - _collider.getEnd().y};
+            auto a = Vector2{_circle.getPos().x - _collider.getStart().x, _circle.getPos().y - _collider.getStart().y};
 
             // 終点から円の中心へのベクトル
             auto b = Vector2{_circle.getPos().x - _collider.getEnd().x, _circle.getPos().y - _collider.getEnd().y};
 
             // 線分の長さ
-            auto length = _collider.getLength();
+            auto length = _collider.getEnd() - _collider.getStart();
             auto nomal = length.normalized();
 
             // 中心から線分への最短距離
-            float projection = a.x * nomal.y - nomal.x * b.y;
+            float projection = a.x * nomal.y - nomal.x * a.y;
 
             if (std::fabs(projection) < _circle.getRadius())
             {
                 float dot1 = a.x * length.x + a.y * length.y;
-                float dot2 = b.x * length.x * b.y * length.y;
+                float dot2 = b.x * length.x + b.y * length.y;
 
                 if (dot1 * dot2 <= 0.0f)
                 {
@@ -196,6 +196,12 @@ namespace gnCollider2D {
 
         // Circle vs Point
         inline bool intersect(const CircleCollider  &_circle,  const PointCollider   &_collider){
+            auto d = _collider.getPos() - _circle.getPos();
+
+            if(d.magnitude() <= _circle.getRadius() * _circle.getRadius()){
+                return true;
+            }
+
             return false;
         }
 
