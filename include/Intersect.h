@@ -250,6 +250,10 @@ namespace gnCollider2D {
 
         // Point vs Point
         inline bool intersect(const PointCollider   &_point,   const PointCollider   &_collider){
+            if(_point.getPos().x == _collider.getPos().x && _point.getPos().y == _collider.getPos().y){
+                return true;
+            }
+            
             return false;
         }
 
