@@ -48,8 +48,15 @@ namespace gnCollider2D {
             auto &bounds = _box.getBounds();
             auto &cb = _collider.getBounds();
 
-            return isCheckBox(bounds.minPos.x, bounds.minPos.y, bounds.maxPos.x, bounds.maxPos.y,
-                            cb.minPos.x, cb.minPos.y, cb.maxPos.x, cb.minPos.y);
+            if (bounds.maxPos.x >= cb.minPos.x
+                && bounds.minPos.x <= cb.maxPos.x
+                && bounds.maxPos.y >= cb.minPos.y
+                && bounds.minPos.y <= cb.maxPos.y)
+            {
+                return true;
+            }
+
+            return false;
         }
 
         // Box vs Circle
@@ -105,8 +112,18 @@ namespace gnCollider2D {
 
             float ax{bounds.minPos.x},  ay{bounds.minPos.y},  bx{bounds.minPos.x}, by{bounds.maxPos.y};
             float cx{col.getStart().x}, cy{col.getStart().y}, dx{col.getEnd().x},  dy{col.getEnd().y};
+            if(isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy)) return true;
 
-            return isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy);
+            ax = bounds.minPos.x; ay = bounds.minPos.y; bx = bounds.maxPos.x; by = bounds.minPos.y;
+            if(isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy)) return true;
+
+            ax = bounds.maxPos.x; ay = bounds.minPos.y; bx = bounds.maxPos.x; by = bounds.maxPos.y;
+            if(isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy)) return true;
+
+            ax = bounds.minPos.x; ay = bounds.maxPos.y; bx = bounds.maxPos.x; by = bounds.maxPos.y;
+            if(isCrossingLine(ax, ay, bx, by, cx, cy, dx, dy)) return true;
+
+            return false;
         }
 
         // Box vs Point

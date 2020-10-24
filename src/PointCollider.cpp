@@ -1,8 +1,5 @@
 #include "../include/PointCollider.h"
-#include "../include/BoxCollider.h"
-#include "../include/CircleCollider.h"
-#include "../include/PointCollider.h"
-#include "../include/PolygonCollider.h"
+#include "../include/Intersect.h"
 
 namespace gnCollider2D {
 
@@ -23,16 +20,16 @@ namespace gnCollider2D {
 
 	bool PointCollider::isHitTest(const BoxCollider& _collider)
 	{
-		return false;
+		return Intersect::intersect(_collider, *this);
 	}
 
 	bool PointCollider::isHitTest(const CircleCollider& _collider)
 	{
-		return false;
+		return Intersect::intersect(_collider, *this);
 	}
 
 	bool PointCollider::isHitTest(const LineCollider& _collider){
-		return false;
+		return Intersect::intersect(_collider, *this);
 	}
 
 	bool PointCollider::isHitTest(const PointCollider& _collider)
@@ -44,10 +41,12 @@ namespace gnCollider2D {
 		}
 
 		return false;
+
+		//return Intersect::intersect(*this, _collider);
 	}
 
 	bool PointCollider::isHitTest(const PolygonCollider& _collider){
-		return false;
+		return Intersect::intersect(*this, _collider);
 	}
 
 	void PointCollider::update(const Vector2 _pos)

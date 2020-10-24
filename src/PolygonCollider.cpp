@@ -1,8 +1,5 @@
 #include "../include/PolygonCollider.h"
-#include "../include/BoxCollider.h"
-#include "../include/CircleCollider.h"
-#include "../include/LineCollider.h"
-#include "../include/PointCollider.h"
+#include "../include/Intersect.h"
 
 namespace gnCollider2D{
 

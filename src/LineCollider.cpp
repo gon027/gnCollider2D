@@ -1,10 +1,5 @@
 #include "../include/LineCollider.h"
-#include "../include/BoxCollider.h"
-#include "../include/CircleCollider.h"
-#include "../include/PointCollider.h"
-#include "../include/PolygonCollider.h"
-
-#include <cmath>
+#include "../include/Intersect.h"
 
 namespace gnCollider2D {
 
@@ -36,69 +31,23 @@ namespace gnCollider2D {
     }
 
     bool LineCollider::isHitTest(const BoxCollider& _collider) {
-        const auto& bounds = _collider.getBounds();
-
-        float ax{ bounds.minPos.x }, ay{ bounds.minPos.y }, bx{ bounds.minPos.x }, by{ bounds.maxPos.y };
-        float cx{ start.x }, cy{ start.y }, dx{ end.x }, dy{ end.y };
-        return hitLine(ax, ay, bx, by, cx, cy, dx, dy);
-
-        ax = bounds.minPos.x; ay = bounds.minPos.y; bx = bounds.maxPos.x; by = bounds.minPos.y;
-        return hitLine(ax, ay, bx, by, cx, cy, dx, dy);
-
-        ax = bounds.maxPos.x; ay = bounds.minPos.y; bx = bounds.maxPos.x;by = bounds.maxPos.y;
-        return hitLine(ax, ay, bx, by, cx, cy, dx, dy);
-
-        ax = bounds.minPos.x; ay = bounds.maxPos.y; bx = bounds.maxPos.x; by = bounds.maxPos.y;
-        return hitLine(ax, ay, bx, by, cx, cy, dx, dy);
-
-        return false;
+        return Intersect::intersect(_collider, *this);
     }
 
     bool LineCollider::isHitTest(const CircleCollider& _collider) {
-        // 始点から円の中心へのベクトル
-        auto a = Vector2{ _collider.getPos().x - start.x, _collider.getPos().y - end.y };
-        
-        // 終点から円の中心へのベクトル
-        auto b = Vector2{ _collider.getPos().x - end.x, _collider.getPos().y - end.y };
-        
-        // 線分の長さ
-        auto length = getLength();
-        auto nomal = length.normalized();
-
-        // 中心から線分への最短距離
-        float projection = a.x * nomal.y - nomal.x * b.y;
-
-        if(fabs(projection) < _collider.getRadius()){
-            float dot1 = a.x * length.x + a.y * length.y;
-            float dot2 = b.x * length.x * b.y * length.y;
-
-            if(dot1 * dot2 <= 0.0f){
-                return true;
-            }
-
-            if(a.magnitude() < _collider.getRadius() || b.magnitude() < _collider.getRadius()){
-                return true;
-            }
-        }
-
-        return false;
+        return Intersect::intersect(_collider, *this);
     }
 
     bool LineCollider::isHitTest(const LineCollider& _collider) {
-        auto& col = _collider;
-
-        float ax{ start.x     }, ay{ start.y     }, bx{ end.x     }, by{ end.y     };
-        float cx{ col.start.x }, cy{ col.start.y }, dx{ col.end.x }, dy{ col.end.y };
-
-        return hitLine(ax, ay, bx, by, cx, cy, dx, dy);
+        return Intersect::intersect(*this, _collider);
     }
 
     bool LineCollider::isHitTest(const PointCollider& _collider) {
-        return false;
+        return Intersect::intersect(*this, _collider);
     }
 
     bool LineCollider::isHitTest(const PolygonCollider& _collider) {
-        return false;
+        return Intersect::intersect(*this, _collider);
     }
 
     void LineCollider::update(const Vector2 &_sv, const Vector2 &_gv)

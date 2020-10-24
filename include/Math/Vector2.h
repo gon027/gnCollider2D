@@ -64,7 +64,7 @@ namespace gnCollider2D {
 
 		const bool operator!=(const Vector2& _rvec) const;
 
-		std::string toString() {
+		const std::string toString() const {
 			return "[x: " + std::to_string(x)
 				+ ", y: " + std::to_string(y)
 				+ "]\n";
