@@ -131,7 +131,8 @@ namespace gnCollider2D {
             auto& bounds = _box.getBounds();
             auto& pos = _collider.getPos();
 
-            if(pos.x >= bounds.minPos.x && pos.x <= bounds.maxPos.x && pos.y >= bounds.minPos.y && pos.y <= bounds.maxPos.y){
+            if(pos.x >= bounds.minPos.x && pos.x <= bounds.maxPos.x 
+                && pos.y >= bounds.minPos.y && pos.y <= bounds.maxPos.y){
                 return true;
             }
 
@@ -205,6 +206,7 @@ namespace gnCollider2D {
             return false;
         }
 
+        // Circle vs Polygon
         inline bool intersect(const CircleCollider  &_circle,  const PolygonCollider &_collider){
             return false;
         }

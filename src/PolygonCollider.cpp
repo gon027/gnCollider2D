@@ -3,7 +3,7 @@
 
 namespace gnCollider2D{
 
-    PolygonCollider::PolygonCollider(std::initializer_list<Vertex2D> _polygon)
+    PolygonCollider::PolygonCollider(std::initializer_list<Vector2> _polygon)
     {    
     }
 
@@ -12,22 +12,26 @@ namespace gnCollider2D{
     }
 
     bool PolygonCollider::isHitTest(const BoxCollider& _collider){
-        return false;
+        return Intersect::intersect(_collider, *this);
     }
 
-     bool PolygonCollider::isHitTest(const CircleCollider& _collider){
-        return false;
+    bool PolygonCollider::isHitTest(const CircleCollider& _collider){
+        return Intersect::intersect(_collider, *this);
     }
 
-     bool PolygonCollider::isHitTest(const LineCollider& _collider){
-        return false;
+    bool PolygonCollider::isHitTest(const LineCollider& _collider){
+        return Intersect::intersect(_collider, *this);
     }
 
-     bool PolygonCollider::isHitTest(const PointCollider& _collider){
-        return false;
+    bool PolygonCollider::isHitTest(const PointCollider& _collider){
+        return Intersect::intersect(_collider, *this);
     }
 
-     bool PolygonCollider::isHitTest(const PolygonCollider& _collider){
-        return false;
+    bool PolygonCollider::isHitTest(const PolygonCollider& _collider){
+        return Intersect::intersect(*this, _collider);
+    }
+
+    const PolygonList& PolygonCollider::getPolygonList() const{
+        return polygonList;
     }
 }

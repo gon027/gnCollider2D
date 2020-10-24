@@ -7,18 +7,13 @@
 #include "Math/Vector2.h"
 
 namespace gnCollider2D {
-
-	struct Vertex2D{
-		float x, y;
-	};
+	
+	using PolygonList = std::vector<Vector2>;
 
 	class PolygonCollider : public ICollider {
-
-		using PolygonList = std::vector<Vertex2D>;
-
 	public:
 		PolygonCollider() = default;
-		PolygonCollider(std::initializer_list<Vertex2D> _polygon);
+		PolygonCollider(std::initializer_list<Vector2> _polygon);
 		~PolygonCollider() = default;
 
 		ColliderType getType() override;
@@ -28,6 +23,8 @@ namespace gnCollider2D {
 		bool isHitTest(const LineCollider&    _collider) override;
 		bool isHitTest(const PointCollider&   _collider) override;
 		bool isHitTest(const PolygonCollider& _collider) override;
+
+		const PolygonList& getPolygonList() const;
 
 	private:
 		PolygonList polygonList;
